@@ -21,13 +21,17 @@ Cell[][] createSquares() {
 class Cell{
   int xPosition;
   int yPosition;
-  final SIZE;
+  final int SIZE = 10;
+  boolean isAlive;
   
   Cell(int xArray, int yArray){
     // TODO implement this.
-    
-    
-    
+    // new random life status
+  }
+  
+  Cell(int xArray, int yArray, boolean lifeStatus){
+    this(xArray, yArray);
+    isAlive = lifeStatus;
   }
   
 
