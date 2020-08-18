@@ -17,7 +17,6 @@ Cell[][] createSquares() {
   return new Cell[10][10];
 }
 
-
 class Cell{
   int xPosition;
   int yPosition;
