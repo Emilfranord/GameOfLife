@@ -2,13 +2,15 @@
 //Tegne ”brættet” ud fra en fil
 //Skifte farven i firkanter der klikkes på
 
+Cell[][] cellArray;
+
 void setup() {
   size(400, 400);
-  Cell[][] cellArray = createCells();
-  render(cellArray);
+  cellArray = createCells();
 }
 
 void draw() {
+  render(cellArray);
 }
 
 Cell[][] createCells() {
@@ -20,7 +22,6 @@ Cell[][] createCells() {
       output[i][j] = new Cell(i, j);
     }
   }
-
   return output;
 }
 
@@ -29,7 +30,7 @@ Cell[][] loadCells() {
   return new Cell[10][10];
 }
 
-void render(Cell[][] input) {
+void render(Cell[][] input) { // renders a cell array array. 
   for (int i = 0; i<input.length; i++) {
     for (int j = 0; j<input.length; j++) {
       input[i][j].render();
@@ -37,8 +38,7 @@ void render(Cell[][] input) {
   }
 }
 
-class Cell{
-
+class Cell {
   int xPosition;
   int yPosition;
   final int SIZE = 40;
@@ -56,15 +56,25 @@ class Cell{
     isAlive = lifeStatus;
   }
 
-  Cell(String saveData) {
-    // TODO implement this
-    // expect data like toString
+  Cell(String saveData) { // this can only get the info of one cell, not a array array.
+    //TODO: implement this.
+    int seperator = saveData.indexOf(":");
+    
+    if(saveData.endsWith("T!")){
+      
+    }else if(saveData.endsWith("F!")){
+      
+    }else {
+      println("Incomplete data");
+    }
   }
 
   String toString() {
-    // TODO implement this
-    // give data to String constructor 
-    return "test";
+    if (isAlive) {
+      return xPosition+ ":"+yPosition+"T!";
+    } else {
+      return xPosition+ ":"+yPosition+"T!";
+    }
   }
 
   void render() {
@@ -81,4 +91,10 @@ class Cell{
     // use size and distance to the other quorners. They are at the locations, relative to this cell:(size, 0), (0,size), (-size,0), (0,-size)
     return false;
   }
+  
+  void onClick(){
+  // TODO: implement this
+  // have the cell 
+  }
+  
 }
