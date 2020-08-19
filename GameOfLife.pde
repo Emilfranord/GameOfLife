@@ -41,7 +41,7 @@ void render(Cell[][] input) { // renders a cell array array.
 class Cell {
   int xPosition;
   int yPosition;
-  final int SIZE = 40;
+  static final int SIZE = 40;
   boolean isAlive;
 
   Cell(int xArray, int yArray) {
