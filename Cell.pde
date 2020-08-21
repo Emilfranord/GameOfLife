@@ -70,4 +70,7 @@ class Cell {
       isAlive = !isAlive;
     }
   }
+  
+    
+  
 }
