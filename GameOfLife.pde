@@ -1,3 +1,5 @@
+// 
+
 Cell[][] cellArray;
 
 void setup() {
@@ -6,7 +8,6 @@ void setup() {
   //saveCells(cellArray);
   String[] loadedFile = loadStrings("output.txt");
   cellArray = loadCells(loadedFile);
-  
 }
 
 void draw() {
@@ -72,4 +73,61 @@ void keyPressed() {
     println("state saved");
   }
   key = 'q';
+}
+
+void updateLife(Cell[][] life) {
+  Cell[][] futureSetup = new Cell[life.length][life.length];
+
+  for (int i = 0; i<life.length; i++) {
+    for (int j = 0; j<life.length; j++) {
+      int count = 0;
+      if (i!=0 && j!=0) {
+        if (life[i-1][j-1].isAlive) {
+          count++;
+        }
+      }
+
+      if (j!=0) {
+        if (life[i][j-1].isAlive) {
+          count++;
+        }
+      }
+
+      if (i!= life.length-2 && j!=0) {
+        if (life[i+1][j-1].isAlive) {
+          count++;
+        }
+      }
+
+      if (i!=0) {
+        if (life[i-1][j].isAlive) {
+          count++;
+        }
+      }
+
+      if (i!= life.length-2) {
+        if (life[i+1][j].isAlive) {
+          count++;
+        }
+      }
+
+      if (i!=0 && j!= life.length-2) {
+        if (life[i-1][j+1].isAlive) {
+          count++;
+        }
+      }
+      
+      if (j!= life.length-2) {
+        if (life[i][j+1].isAlive) {
+          count++;
+        }
+      }
+      
+      if (i!= life.length-2 && j!= life.length-2) {
+        if (life[i+1][j+1].isAlive) {
+          count++;
+        }
+      }
+    }
+  }
 }
