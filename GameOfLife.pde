@@ -1,7 +1,3 @@
-//Gemme information om det 2-dimensionelle array i fil
-//Tegne ”brættet” ud fra en fil
-//Skifte farven i firkanter der klikkes på
-
 Cell[][] cellArray;
 
 void setup() {
@@ -9,8 +5,8 @@ void setup() {
   //cellArray = createCells();
   //saveCells(cellArray);
   String[] loadedFile = loadStrings("output.txt");
-  
-  cellArray = loadCells(loadedFile); 
+
+  cellArray = loadCells(loadedFile);
 }
 
 void draw() {
@@ -30,18 +26,17 @@ Cell[][] createCells() { // new random cell field
 }
 
 Cell[][] loadCells(String[] input) { // construct form a String[]
-  // TODO implement this
- Cell[][] temp = new Cell[10][10];
- 
-   for (int i = 0; i<temp.length; i++) {
+
+  Cell[][] temp = new Cell[10][10];
+
+  for (int i = 0; i<temp.length; i++) {
     for (int j = 0; j<temp.length; j++) {
       println(i, j);
       temp[i][j] = new Cell(i, j, input[i].charAt(j));
     }
   }
-  
+
   return temp;
-  
 }
 
 void saveCells(Cell[][] output) { // construct a txt file from the Cell[][]
@@ -64,4 +59,21 @@ void render(Cell[][] input) { // renders a cell array array.
       input[i][j].render();
     }
   }
+}
+
+void mousePressed() {
+
+  for (int i = 0; i<cellArray.length; i++) {
+    for (int j = 0; j<cellArray.length; j++) {
+      cellArray[i][j].onClick(mouseX, mouseY);
+    }
+  }
+}
+
+void keyPressed() {
+  if (key == 's') {
+    saveCells(cellArray);
+    println("state saved");
+  }
+  key = 'q';
 }
