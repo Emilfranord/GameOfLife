@@ -38,13 +38,34 @@ class Cell {
   }
 
   boolean isNeighbour(Cell suspect) {
-    // TODO implement this
-    // use size and distance to the other quorners. They are at the locations, relative to this cell:(size, 0), (0,size), (-size,0), (0,-size)
+    if (this.xPosition + SIZE == suspect.xPosition && this.yPosition == suspect.yPosition) {
+      return true;
+    }  
+    if (this.xPosition == suspect.xPosition && this.yPosition  + SIZE == suspect.yPosition) {
+      return true;
+    } 
+    if (this.xPosition - SIZE == suspect.xPosition && this.yPosition == suspect.yPosition) {
+      return true;
+    } 
+    if (this.xPosition == suspect.xPosition && this.yPosition  - SIZE == suspect.yPosition) {
+      return true;
+    } 
+    if (this.xPosition + SIZE == suspect.xPosition && this.yPosition  - SIZE == suspect.yPosition) {
+      return true;
+    } 
+    if (this.xPosition - SIZE == suspect.xPosition && this.yPosition  + SIZE == suspect.yPosition) {
+      return true;
+    }
+    if (this.xPosition - SIZE == suspect.xPosition && this.yPosition  - SIZE == suspect.yPosition) {
+      return true;
+    } 
+    if (this.xPosition + SIZE == suspect.xPosition && this.yPosition  + SIZE == suspect.yPosition) {
+      return true;
+    }
     return false;
   }
 
   void onClick(int xForMouse, int yForMouse) {
-    // TODO: implement this
     if (xForMouse > this.xPosition && xForMouse < this.xPosition+SIZE &&  yForMouse > this.yPosition && yForMouse < this.yPosition+SIZE) {
       isAlive = !isAlive;
     }
