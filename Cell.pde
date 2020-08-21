@@ -16,21 +16,8 @@ class Cell {
     isAlive = lifeStatus;
   }
 
-  Cell(String saveData) { // this can only get the info of one cell, not a array array.
-    // TODO: implement this
-    
-  }
-
   Cell(int xArray, int yArray, char saveData) {
     this(xArray, yArray, saveData == 'T');
-  }
-
-  String toString() { // the format is XXXXXX:YYYYYYT!
-    if (isAlive) {
-      return xPosition+ ":"+yPosition+"T!";
-    } else {
-      return xPosition+ ":"+yPosition+"T!";
-    }
   }
 
   char toChar() {
@@ -40,7 +27,6 @@ class Cell {
       return 'F';
     }
   }
-
 
   void render() {
     if (isAlive) {
@@ -57,8 +43,10 @@ class Cell {
     return false;
   }
 
-  void onClick() {
+  void onClick(int xForMouse, int yForMouse) {
     // TODO: implement this
-    // have the cell
+    if (xForMouse > this.xPosition && xForMouse < this.xPosition+SIZE &&  yForMouse > this.yPosition && yForMouse < this.yPosition+SIZE) {
+      isAlive = !isAlive;
+    }
   }
 }
