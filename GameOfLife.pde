@@ -6,16 +6,18 @@ Cell[][] cellArray;
 
 void setup() {
   size(400, 400);
-  cellArray = createCells();
-  saveCells(cellArray);
+  //cellArray = createCells();
+  //saveCells(cellArray);
+  String[] loadedFile = loadStrings("output.txt");
   
+  cellArray = loadCells(loadedFile); 
 }
 
 void draw() {
   render(cellArray);
 }
 
-Cell[][] createCells() {
+Cell[][] createCells() { // new random cell field
   Cell[][] output =  new Cell[10][10];
 
   for (int i = 0; i<output.length; i++) {
@@ -29,7 +31,17 @@ Cell[][] createCells() {
 
 Cell[][] loadCells(String[] input) { // construct form a String[]
   // TODO implement this
-  return new Cell[10][10];
+ Cell[][] temp = new Cell[10][10];
+ 
+   for (int i = 0; i<temp.length; i++) {
+    for (int j = 0; j<temp.length; j++) {
+      println(i, j);
+      temp[i][j] = new Cell(i, j, input[i].charAt(j));
+    }
+  }
+  
+  return temp;
+  
 }
 
 void saveCells(Cell[][] output) { // construct a txt file from the Cell[][]
@@ -45,7 +57,6 @@ void saveCells(Cell[][] output) { // construct a txt file from the Cell[][]
 
   saveStrings("output.txt", temp );
 }
-
 
 void render(Cell[][] input) { // renders a cell array array. 
   for (int i = 0; i<input.length; i++) {
