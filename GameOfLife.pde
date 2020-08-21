@@ -5,8 +5,8 @@ void setup() {
   //cellArray = createCells();
   //saveCells(cellArray);
   String[] loadedFile = loadStrings("output.txt");
-
   cellArray = loadCells(loadedFile);
+  
 }
 
 void draw() {
@@ -18,7 +18,6 @@ Cell[][] createCells() { // new random cell field
 
   for (int i = 0; i<output.length; i++) {
     for (int j = 0; j<output.length; j++) {
-      println(i, j);
       output[i][j] = new Cell(i, j);
     }
   }
@@ -35,7 +34,6 @@ Cell[][] loadCells(String[] input) { // construct form a String[]
       temp[i][j] = new Cell(i, j, input[i].charAt(j));
     }
   }
-
   return temp;
 }
 
@@ -49,7 +47,6 @@ void saveCells(Cell[][] output) { // construct a txt file from the Cell[][]
       temp[i] += output[i][j].toChar();
     }
   }
-
   saveStrings("output.txt", temp );
 }
 
@@ -62,7 +59,6 @@ void render(Cell[][] input) { // renders a cell array array.
 }
 
 void mousePressed() {
-
   for (int i = 0; i<cellArray.length; i++) {
     for (int j = 0; j<cellArray.length; j++) {
       cellArray[i][j].onClick(mouseX, mouseY);
