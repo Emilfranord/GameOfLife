@@ -3,12 +3,13 @@ class Cell {
   int yPosition;
   static final int SIZE = 40;
   boolean isAlive;
+  // TODO: remove isAlive, and replace with DeadCell
 
   Cell(int xArray, int yArray) {
     xPosition = xArray * SIZE;
     yPosition = yArray * SIZE;
 
-    isAlive = random(2)>1;
+    //isAlive = random(2)>1;
   }
 
   Cell(int xArray, int yArray, boolean lifeStatus) {
@@ -16,24 +17,19 @@ class Cell {
     isAlive = lifeStatus;
   }
 
-  Cell(int xArray, int yArray, char saveData) {
-    this(xArray, yArray, saveData == 'T');
-  }
+  //Cell(int xArray, int yArray, char saveData) {
+  //  this(xArray, yArray);  
+  //}
 
   char toChar() {
     if (isAlive) {
       return 'T';
-    } else {
+    } else { 
       return 'F';
     }
   }
 
   void render() {
-    if (isAlive) {
-      fill(0);
-    } else {
-      fill(255);
-    }
     square(xPosition, yPosition, SIZE);
   }
 
@@ -70,7 +66,8 @@ class Cell {
       isAlive = !isAlive;
     }
   }
-  
-    
-  
+
+  DeadCell kill() {
+    return new DeadCell(this);
+  }
 }

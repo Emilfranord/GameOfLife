@@ -20,6 +20,11 @@ Cell[][] createCells() { // new random cell field
   for (int i = 0; i<output.length; i++) {
     for (int j = 0; j<output.length; j++) {
       output[i][j] = new Cell(i, j);
+      if (random(2)<1) {
+        output[i][j] = new DeadCell(output[i][j] );
+      } else {
+        output[i][j] = new AliveCell(output[i][j] );
+      }
     }
   }
   return output;
@@ -32,7 +37,13 @@ Cell[][] loadCells(String[] input) { // construct form a String[]
   for (int i = 0; i<temp.length; i++) {
     for (int j = 0; j<temp.length; j++) {
       println(i, j);
-      temp[i][j] = new Cell(i, j, input[i].charAt(j));
+      temp[i][j] = new Cell(i, j);
+      if (input[i].charAt(j) == 'D') {
+        temp[i][j] = new DeadCell(temp[i][j] );
+      }
+      if (input[i].charAt(j) == 'A') {
+        temp[i][j] = new AliveCell(temp[i][j] );
+      }
     }
   }
   return temp;
@@ -116,13 +127,13 @@ void updateLife(Cell[][] life) {
           count++;
         }
       }
-      
+
       if (j!= life.length-2) {
         if (life[i][j+1].isAlive) {
           count++;
         }
       }
-      
+
       if (i!= life.length-2 && j!= life.length-2) {
         if (life[i+1][j+1].isAlive) {
           count++;
