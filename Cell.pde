@@ -8,7 +8,6 @@ class Cell {
   Cell(int xArray, int yArray) {
     xPosition = xArray * SIZE;
     yPosition = yArray * SIZE;
-
     //isAlive = random(2)>1;
   }
 
@@ -30,6 +29,8 @@ class Cell {
   }
 
   void render() {
+    //fill(#ff0000);
+    //println("super render");
     square(xPosition, yPosition, SIZE);
   }
 
@@ -61,13 +62,15 @@ class Cell {
     return false;
   }
 
-  void onClick(int xForMouse, int yForMouse) {
+  boolean isClicked(int xForMouse, int yForMouse) {
     if (xForMouse > this.xPosition && xForMouse < this.xPosition+SIZE &&  yForMouse > this.yPosition && yForMouse < this.yPosition+SIZE) {
-      isAlive = !isAlive;
+      return true;
+      //this.kill();
     }
+    return false;
   }
 
   DeadCell kill() {
-    return new DeadCell(this);
+    return new DeadCell(floor(this.xPosition / Cell.SIZE), floor(this.yPosition / Cell.SIZE) );
   }
 }

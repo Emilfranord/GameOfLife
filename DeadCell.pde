@@ -4,8 +4,13 @@ class DeadCell extends Cell {
     super(prev.xPosition, prev.yPosition, false);
   }
 
+   DeadCell(int xArray, int yArray) {
+    super(xArray, yArray);
+  }
+
   void render() {
-    fill(0);
+    //println("dead render");
+    fill(#000000);
     super.render();
   }
   char toChar() {

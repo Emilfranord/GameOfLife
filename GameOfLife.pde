@@ -1,10 +1,8 @@
-// 
-
-Cell[][] cellArray;
+ Cell[][] cellArray;
 
 void setup() {
   size(400, 400);
-  //cellArray = createCells();
+  //cellArray = loadCells();
   //saveCells(cellArray);
   String[] loadedFile = loadStrings("output.txt");
   cellArray = loadCells(loadedFile);
@@ -14,35 +12,32 @@ void draw() {
   render(cellArray);
 }
 
-Cell[][] createCells() { // new random cell field
+Cell[][] loadCells() { // new random cell field
   Cell[][] output =  new Cell[10][10];
 
   for (int i = 0; i<output.length; i++) {
     for (int j = 0; j<output.length; j++) {
       output[i][j] = new Cell(i, j);
       if (random(2)<1) {
-        output[i][j] = new DeadCell(output[i][j] );
+        output[i][j] = new DeadCell(output[i][j]);
       } else {
-        output[i][j] = new AliveCell(output[i][j] );
+        output[i][j] = new AliveCell(output[i][j]);
       }
     }
   }
   return output;
 }
 
-Cell[][] loadCells(String[] input) { // construct form a String[]
 
+Cell[][] loadCells(String[] input) { // construct from a String[]
   Cell[][] temp = new Cell[10][10];
-
   for (int i = 0; i<temp.length; i++) {
     for (int j = 0; j<temp.length; j++) {
-      println(i, j);
-      temp[i][j] = new Cell(i, j);
       if (input[i].charAt(j) == 'D') {
-        temp[i][j] = new DeadCell(temp[i][j] );
+        temp[i][j] = new DeadCell(i, j);
       }
       if (input[i].charAt(j) == 'A') {
-        temp[i][j] = new AliveCell(temp[i][j] );
+        temp[i][j] = new AliveCell(i, j);
       }
     }
   }
@@ -51,29 +46,31 @@ Cell[][] loadCells(String[] input) { // construct form a String[]
 
 void saveCells(Cell[][] output) { // construct a txt file from the Cell[][]
   String[] temp = new String[output.length];
-
   for (int i = 0; i<output.length; i++) {
     temp[i] = "";
     for (int j = 0; j<output.length; j++) {
-      //println(i, j);
       temp[i] += output[i][j].toChar();
     }
   }
   saveStrings("output.txt", temp );
 }
 
-void render(Cell[][] input) { // renders a cell array array. 
+void render(Cell[][] input) {// renders a cell array array. 
   for (int i = 0; i<input.length; i++) {
     for (int j = 0; j<input.length; j++) {
       input[i][j].render();
     }
   }
+
+  input[7][4].render();
 }
 
 void mousePressed() {
   for (int i = 0; i<cellArray.length; i++) {
     for (int j = 0; j<cellArray.length; j++) {
-      cellArray[i][j].onClick(mouseX, mouseY);
+      if (cellArray[i][j].isClicked(mouseX, mouseY)) {
+        cellArray[i][j] = cellArray[i][j].kill();
+      }
     }
   }
 }
