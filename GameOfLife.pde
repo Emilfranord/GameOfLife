@@ -30,7 +30,9 @@ Cell[][] loadCells() { // new random cell field
 
 
 Cell[][] loadCells(String[] input) { // construct from a String[]
+  // TODO: remake to fit into loadCells(String[]) variant. Does not work ath teh moment. 
   Cell[][] temp = new Cell[10][10];
+
   for (int i = 0; i<temp.length; i++) {
     for (int j = 0; j<temp.length; j++) {
       if (input[i].charAt(j) == 'D') {
