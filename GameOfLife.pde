@@ -13,15 +13,15 @@ void draw() {
 }
 
 Cell[][] loadCells() { // new random cell field
+  // TODO: remake to fit into loadCells(String[]) variant. Does not work ath teh moment. 
   Cell[][] output =  new Cell[10][10];
-
   for (int i = 0; i<output.length; i++) {
     for (int j = 0; j<output.length; j++) {
-      output[i][j] = new Cell(i, j);
+      //output[i][j] = new Cell(i, j);
       if (random(2)<1) {
-        output[i][j] = new DeadCell(output[i][j]);
+        output[i][j] = new DeadCell(i, j);
       } else {
-        output[i][j] = new AliveCell(output[i][j]);
+        output[i][j] = new AliveCell(i, j);
       }
     }
   }
@@ -30,9 +30,7 @@ Cell[][] loadCells() { // new random cell field
 
 
 Cell[][] loadCells(String[] input) { // construct from a String[]
-  // TODO: remake to fit into loadCells(String[]) variant. Does not work ath teh moment. 
   Cell[][] temp = new Cell[10][10];
-
   for (int i = 0; i<temp.length; i++) {
     for (int j = 0; j<temp.length; j++) {
       if (input[i].charAt(j) == 'D') {

@@ -1,7 +1,7 @@
 class DeadCell extends Cell {
 
   DeadCell(Cell prev) {
-    super(prev.xPosition, prev.yPosition, false);
+    super(prev.xPosition/Cell.SIZE, prev.yPosition/Cell.SIZE, false);
   }
 
    DeadCell(int xArray, int yArray) {
