@@ -1,15 +1,17 @@
 Cell[][] cellArray;
 
 void setup() {
+  frameRate(2);
   size(400, 400);
-  //cellArray = loadCells();
-  //saveCells(cellArray);
-  String[] loadedFile = loadStrings("output.txt");
-  cellArray = loadCells(loadedFile);
+  cellArray = loadCells();
+  saveCells(cellArray);
+  //String[] loadedFile = loadStrings("output.txt");
+  //cellArray = loadCells(loadedFile);
 }
 
 void draw() {
   render(cellArray);
+  cellArray = updateLife(cellArray);
 }
 
 Cell[][] loadCells() { // new random cell field
@@ -19,9 +21,9 @@ Cell[][] loadCells() { // new random cell field
     for (int j = 0; j<output.length; j++) {
       //output[i][j] = new Cell(i, j);
       if (random(2)<1) {
-        output[i][j] = loadCell('D',i, j);
+        output[i][j] = loadCell('D', i, j);
       } else {
-        output[i][j] = loadCell('A',i, j);
+        output[i][j] = loadCell('A', i, j);
       }
     }
   }
@@ -93,14 +95,16 @@ void keyPressed() {
   key = 'q';
 }
 
-void updateLife(Cell[][] life) {
+Cell[][] updateLife(Cell[][] life) {
   Cell[][] futureSetup = new Cell[life.length][life.length];
 
   for (int i = 0; i<life.length; i++) {
     for (int j = 0; j<life.length; j++) {
       int count = 0;
       if (i!=0 && j!=0) {
+        //println(life[i-1][j-1].isAlive);
         if (life[i-1][j-1].isAlive) {
+          //println("ff");
           count++;
         }
       }
@@ -111,7 +115,7 @@ void updateLife(Cell[][] life) {
         }
       }
 
-      if (i!= life.length-2 && j!=0) {
+      if (i!= life.length-1 && j!=0) {
         if (life[i+1][j-1].isAlive) {
           count++;
         }
@@ -123,29 +127,58 @@ void updateLife(Cell[][] life) {
         }
       }
 
-      if (i!= life.length-2) {
+      if (i!= life.length-1) {
         if (life[i+1][j].isAlive) {
           count++;
         }
       }
 
-      if (i!=0 && j!= life.length-2) {
+      if (i!=0 && j!= life.length-1) {// changed from 2
         if (life[i-1][j+1].isAlive) {
           count++;
         }
       }
 
-      if (j!= life.length-2) {
+      if (j!= life.length-1) { // changed from 2
         if (life[i][j+1].isAlive) {
           count++;
         }
       }
 
-      if (i!= life.length-2 && j!= life.length-2) {
+      if (i!= life.length-1 && j!= life.length-1) {
         if (life[i+1][j+1].isAlive) {
           count++;
         }
       }
+
+      // inside of the for loops.
+      // next generation, based on conways game of life.
+
+      //futureSetup[i][j] = life[i][j];
+      
+      futureSetup[i][j] = loadCell(life[i][j].toChar(),i,j);
+      
+      // TODO: make the cells get alive.
+      if (life[i][j].isAlive == false && count ==3) {
+        futureSetup[i][j] = loadCell('A',i,j);
+        //println(futureSetup[i][j].toChar());
+        //futureSetup[i][j] = new AliveCell(futureSetup[i][j]);
+        //println("cell reproduction");
+      }
+      
+      if (life[i][j].isAlive == true && count == 1 || count == 0) {
+        futureSetup[i][j].kill();
+      }
+      if (life[i][j].isAlive == true && count == 2 || count == 3) {
+        // nothing
+      }
+      if (life[i][j].isAlive == true && count <3) {
+        //futureSetup[i][j] = life[i][j];
+        futureSetup[i][j].kill();
+      }
     }
   }
+  // outside of the for loops.
+
+  return futureSetup;
 }
