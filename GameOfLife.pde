@@ -28,7 +28,6 @@ Cell[][] loadCells() { // new random cell field
   return output;
 }
 
-
 Cell[][] loadCells(String[] input) { // construct from a String[]
   Cell[][] temp = new Cell[10][10];
   for (int i = 0; i<temp.length; i++) {
@@ -38,6 +37,9 @@ Cell[][] loadCells(String[] input) { // construct from a String[]
       }
       if (input[i].charAt(j) == 'A') {
         temp[i][j] = new AliveCell(i, j);
+      }
+      if(input[i].charAt(j) == 'F'){
+        temp[i][j] = new FrendlyCell(i, j);
       }
     }
   }
