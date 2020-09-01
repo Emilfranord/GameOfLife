@@ -21,6 +21,10 @@ class DeadCell extends Cell {
     return 'D';
   }
   
+  AliveCell reproduction(){
+    return new AliveCell(xPosition/Cell.SIZE,yPosition/Cell.SIZE );
+    
+  }
   
   
 }

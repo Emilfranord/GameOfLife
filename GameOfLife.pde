@@ -1,8 +1,7 @@
 Cell[][] cellArray;
-int ArrayDimentions = 10;
+int ArrayDimentions = 15;
 
-
-void settings(){
+void settings() {
   size(ArrayDimentions * Cell.SIZE, ArrayDimentions * Cell.SIZE);
 }
 
@@ -159,27 +158,20 @@ Cell[][] updateLife(Cell[][] life) {
       // inside of the for loops.
       // next generation, based on conways game of life.
 
-      //futureSetup[i][j] = life[i][j];
-      
-      futureSetup[i][j] = loadCell(life[i][j].toChar(),i,j);
-      
-      // TODO: make the cells get alive.
-      if (life[i][j].isAlive == false && count ==3) {
-        futureSetup[i][j] = loadCell('A',i,j);
-        //println(futureSetup[i][j].toChar());
-        //futureSetup[i][j] = new AliveCell(futureSetup[i][j]);
-        //println("cell reproduction");
-      }
-      
+      futureSetup[i][j] = loadCell(life[i][j].toChar(), i, j);
+
       if (life[i][j].isAlive == true && count == 1 || count == 0) {
-        futureSetup[i][j].kill();
+        futureSetup[i][j] = futureSetup[i][j].kill();
       }
       if (life[i][j].isAlive == true && count == 2 || count == 3) {
         // nothing
       }
       if (life[i][j].isAlive == true && count <3) {
-        //futureSetup[i][j] = life[i][j];
-        futureSetup[i][j].kill();
+        futureSetup[i][j] = futureSetup[i][j].kill();
+      }
+
+      if (life[i][j].isAlive == false && count == 3) {
+        futureSetup[i][j] = futureSetup[i][j].resurrect();
       }
     }
   }

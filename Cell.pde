@@ -74,5 +74,8 @@ class Cell {
     return new DeadCell(floor(this.xPosition / Cell.SIZE), floor(this.yPosition / Cell.SIZE) );
   }
   
+  AliveCell resurrect(){
+    return new AliveCell(floor(this.xPosition / Cell.SIZE), floor(this.yPosition / Cell.SIZE));
+  } 
   
 }
