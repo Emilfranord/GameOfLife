@@ -73,4 +73,6 @@ class Cell {
   DeadCell kill() {
     return new DeadCell(floor(this.xPosition / Cell.SIZE), floor(this.yPosition / Cell.SIZE) );
   }
+  
+  
 }
