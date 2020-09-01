@@ -1,4 +1,4 @@
- Cell[][] cellArray;
+Cell[][] cellArray;
 
 void setup() {
   size(400, 400);
@@ -13,15 +13,15 @@ void draw() {
 }
 
 Cell[][] loadCells() { // new random cell field
-  // TODO: remake to fit into loadCells(String[]) variant. Does not work ath teh moment. 
+  // TODO: remake to fit into loadCells(String[]) variant.
   Cell[][] output =  new Cell[10][10];
   for (int i = 0; i<output.length; i++) {
     for (int j = 0; j<output.length; j++) {
       //output[i][j] = new Cell(i, j);
       if (random(2)<1) {
-        output[i][j] = new DeadCell(i, j);
+        output[i][j] = loadCell('D',i, j);
       } else {
-        output[i][j] = new AliveCell(i, j);
+        output[i][j] = loadCell('A',i, j);
       }
     }
   }
@@ -32,19 +32,27 @@ Cell[][] loadCells(String[] input) { // construct from a String[]
   Cell[][] temp = new Cell[10][10];
   for (int i = 0; i<temp.length; i++) {
     for (int j = 0; j<temp.length; j++) {
-      if (input[i].charAt(j) == 'D') {
-        temp[i][j] = new DeadCell(i, j);
-      }
-      if (input[i].charAt(j) == 'A') {
-        temp[i][j] = new AliveCell(i, j);
-      }
-      if(input[i].charAt(j) == 'F'){
-        temp[i][j] = new FrendlyCell(i, j);
-      }
+      temp[i][j] = loadCell(input[i].charAt(j), i, j);
     }
   }
   return temp;
 }
+
+
+Cell loadCell(char entry, int i, int j ) {
+  if (entry== 'D') {
+    return new DeadCell(i, j);
+  }
+  if (entry == 'A') {
+    return new AliveCell(i, j);
+  }
+  if (entry == 'F') {
+    return new FrendlyCell(i, j);
+  }
+  return new DeadCell(i, j);
+}
+
+
 
 void saveCells(Cell[][] output) { // construct a txt file from the Cell[][]
   String[] temp = new String[output.length];
