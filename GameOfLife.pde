@@ -1,8 +1,13 @@
 Cell[][] cellArray;
+int ArrayDimentions = 10;
+
+
+void settings(){
+  size(ArrayDimentions * Cell.SIZE, ArrayDimentions * Cell.SIZE);
+}
 
 void setup() {
   frameRate(2);
-  size(400, 400);
   cellArray = loadCells();
   saveCells(cellArray);
   //String[] loadedFile = loadStrings("output.txt");
@@ -16,7 +21,7 @@ void draw() {
 
 Cell[][] loadCells() { // new random cell field
   // TODO: remake to fit into loadCells(String[]) variant.
-  Cell[][] output =  new Cell[10][10];
+  Cell[][] output =  new Cell[ArrayDimentions][ArrayDimentions];
   for (int i = 0; i<output.length; i++) {
     for (int j = 0; j<output.length; j++) {
       //output[i][j] = new Cell(i, j);
@@ -31,7 +36,7 @@ Cell[][] loadCells() { // new random cell field
 }
 
 Cell[][] loadCells(String[] input) { // construct from a String[]
-  Cell[][] temp = new Cell[10][10];
+  Cell[][] temp = new Cell[ArrayDimentions][ArrayDimentions];
   for (int i = 0; i<temp.length; i++) {
     for (int j = 0; j<temp.length; j++) {
       temp[i][j] = loadCell(input[i].charAt(j), i, j);
