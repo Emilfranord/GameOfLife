@@ -12,7 +12,7 @@ class AliveCell extends Cell {
 
   void render() {
     //println("alive render");
-    fill(255);
+    fill(0);
     super.render();
   }
 
