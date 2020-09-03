@@ -1,13 +1,14 @@
 Cell[][] cellArray;
-int ArrayDimentions = 15;
+int ArrayDimentions = 30;
 
 void settings() {
   size(ArrayDimentions * Cell.SIZE, ArrayDimentions * Cell.SIZE);
 }
 
 void setup() {
-  frameRate(2);
-  cellArray = loadCells();
+  frameRate(5);
+  //cellArray = loadCells();
+  cellArray = loadCells(true);
   saveCells(cellArray);
   //String[] loadedFile = loadStrings("output.txt");
   //cellArray = loadCells(loadedFile);
@@ -19,7 +20,6 @@ void draw() {
 }
 
 Cell[][] loadCells() { // new random cell field
-  // TODO: remake to fit into loadCells(String[]) variant.
   Cell[][] output =  new Cell[ArrayDimentions][ArrayDimentions];
   for (int i = 0; i<output.length; i++) {
     for (int j = 0; j<output.length; j++) {
@@ -34,6 +34,21 @@ Cell[][] loadCells() { // new random cell field
   return output;
 }
 
+Cell[][] loadCells(boolean cleanField) { // if the argument is false, the sheet will be clean, and all cells will be alive.
+
+  if (cleanField) {
+    return loadCells();
+  }
+  Cell[][] output =  new Cell[ArrayDimentions][ArrayDimentions];
+  for (int i = 0; i<output.length; i++) {
+    for (int j = 0; j<output.length; j++) {
+      output[i][j] = loadCell('D', i, j);
+    }
+  }
+  return output;
+}
+
+
 Cell[][] loadCells(String[] input) { // construct from a String[]
   Cell[][] temp = new Cell[ArrayDimentions][ArrayDimentions];
   for (int i = 0; i<temp.length; i++) {
@@ -43,7 +58,6 @@ Cell[][] loadCells(String[] input) { // construct from a String[]
   }
   return temp;
 }
-
 
 Cell loadCell(char entry, int i, int j ) {
   if (entry== 'D') {
@@ -57,8 +71,6 @@ Cell loadCell(char entry, int i, int j ) {
   }
   return new DeadCell(i, j);
 }
-
-
 
 void saveCells(Cell[][] output) { // construct a txt file from the Cell[][]
   String[] temp = new String[output.length];
@@ -78,7 +90,7 @@ void render(Cell[][] input) {// renders a cell array array.
     }
   }
 
-  input[7][4].render();
+  //input[7][4].render();
 }
 
 void mousePressed() {
@@ -106,9 +118,9 @@ Cell[][] updateLife(Cell[][] life) {
     for (int j = 0; j<life.length; j++) {
       int count = 0;
       if (i!=0 && j!=0) {
-        //println(life[i-1][j-1].isAlive);
+
         if (life[i-1][j-1].isAlive) {
-          //println("ff");
+
           count++;
         }
       }
@@ -154,19 +166,21 @@ Cell[][] updateLife(Cell[][] life) {
           count++;
         }
       }
+      
+      println(count, i , j);
 
       // inside of the for loops.
       // next generation, based on conways game of life.
 
       futureSetup[i][j] = loadCell(life[i][j].toChar(), i, j);
 
-      if (life[i][j].isAlive == true && count == 1 || count == 0) {
+      if (life[i][j].isAlive && count <2) {
         futureSetup[i][j] = futureSetup[i][j].kill();
       }
-      if (life[i][j].isAlive == true && count == 2 || count == 3) {
+      if (life[i][j].isAlive && count == 2 || count == 3) {
         // nothing
       }
-      if (life[i][j].isAlive == true && count <3) {
+      if (life[i][j].isAlive && count >3) {
         futureSetup[i][j] = futureSetup[i][j].kill();
       }
 
