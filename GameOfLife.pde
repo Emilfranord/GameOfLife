@@ -16,9 +16,7 @@ void setup() {
 void draw() {
   render(cellArray);
   cellArray = updateLife(cellArray);
-  
-  println(cellArray[5][6] instanceof AliveCell);
-  
+  //println(cellArray[5][6] instanceof AliveCell);
 }
 
 Cell[][] loadCells() { // new random cell field
@@ -81,7 +79,7 @@ void saveCells(Cell[][] output) { // construct a txt file from the Cell[][]
       temp[i] += output[i][j].toChar();
     }
   }
-  saveStrings("output.txt", temp );
+  saveStrings("output.txt", temp);
 }
 
 void render(Cell[][] input) {// renders a cell array array. 
