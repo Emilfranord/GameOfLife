@@ -7,12 +7,10 @@ class Cell {
   Cell(int xArray, int yArray) {
     xPosition = xArray * SIZE;
     yPosition = yArray * SIZE;
-    //isAlive = random(2)>1;
   }
 
   Cell(int xArray, int yArray, boolean lifeStatus) {
     this(xArray, yArray);
-    //isAlive = lifeStatus;
   }
 
   char toChar() {
@@ -28,43 +26,12 @@ class Cell {
   }
 
   void render() {
-    //fill(#ff0000);
-    //println("super render");
     square(xPosition, yPosition, SIZE);
-  }
-
-  boolean isNeighbour(Cell suspect) {
-    if (this.xPosition + SIZE == suspect.xPosition && this.yPosition == suspect.yPosition) {
-      return true;
-    }  
-    if (this.xPosition == suspect.xPosition && this.yPosition  + SIZE == suspect.yPosition) {
-      return true;
-    } 
-    if (this.xPosition - SIZE == suspect.xPosition && this.yPosition == suspect.yPosition) {
-      return true;
-    } 
-    if (this.xPosition == suspect.xPosition && this.yPosition  - SIZE == suspect.yPosition) {
-      return true;
-    } 
-    if (this.xPosition + SIZE == suspect.xPosition && this.yPosition  - SIZE == suspect.yPosition) {
-      return true;
-    } 
-    if (this.xPosition - SIZE == suspect.xPosition && this.yPosition  + SIZE == suspect.yPosition) {
-      return true;
-    }
-    if (this.xPosition - SIZE == suspect.xPosition && this.yPosition  - SIZE == suspect.yPosition) {
-      return true;
-    } 
-    if (this.xPosition + SIZE == suspect.xPosition && this.yPosition  + SIZE == suspect.yPosition) {
-      return true;
-    }
-    return false;
   }
 
   boolean isClicked(int xForMouse, int yForMouse) {
     if (xForMouse > this.xPosition && xForMouse < this.xPosition+SIZE &&  yForMouse > this.yPosition && yForMouse < this.yPosition+SIZE) {
       return true;
-      //this.kill();
     }
     return false;
   }
