@@ -1,5 +1,5 @@
 Cell[][] cellArray;
-int ArrayDimentions = 30;
+int ArrayDimentions = 40;
 
 void settings() {
   size(ArrayDimentions * Cell.SIZE, ArrayDimentions * Cell.SIZE);
@@ -7,16 +7,18 @@ void settings() {
 
 void setup() {
   frameRate(5);
-  //cellArray = loadCells();
-  cellArray = loadCells(true);
-  saveCells(cellArray);
-  //String[] loadedFile = loadStrings("output.txt");
-  //cellArray = loadCells(loadedFile);
+  //cellArray = loadCells(false);
+  //saveCells(cellArray);
+  String[] loadedFile = loadStrings("output.txt");
+  cellArray = loadCells(loadedFile);
 }
 
 void draw() {
   render(cellArray);
   cellArray = updateLife(cellArray);
+  
+  println(cellArray[5][6] instanceof AliveCell);
+  
 }
 
 Cell[][] loadCells() { // new random cell field
@@ -47,7 +49,6 @@ Cell[][] loadCells(boolean cleanField) { // if the argument is false, the sheet 
   }
   return output;
 }
-
 
 Cell[][] loadCells(String[] input) { // construct from a String[]
   Cell[][] temp = new Cell[ArrayDimentions][ArrayDimentions];
@@ -89,8 +90,6 @@ void render(Cell[][] input) {// renders a cell array array.
       input[i][j].render();
     }
   }
-
-  //input[7][4].render();
 }
 
 void mousePressed() {
@@ -116,75 +115,24 @@ Cell[][] updateLife(Cell[][] life) {
 
   for (int i = 0; i<life.length; i++) {
     for (int j = 0; j<life.length; j++) {
-      int count = 0;
-      if (i!=0 && j!=0) {
-
-        if (life[i-1][j-1].isAlive) {
-
-          count++;
-        }
-      }
-
-      if (j!=0) {
-        if (life[i][j-1].isAlive) {
-          count++;
-        }
-      }
-
-      if (i!= life.length-1 && j!=0) {
-        if (life[i+1][j-1].isAlive) {
-          count++;
-        }
-      }
-
-      if (i!=0) {
-        if (life[i-1][j].isAlive) {
-          count++;
-        }
-      }
-
-      if (i!= life.length-1) {
-        if (life[i+1][j].isAlive) {
-          count++;
-        }
-      }
-
-      if (i!=0 && j!= life.length-1) {// changed from 2
-        if (life[i-1][j+1].isAlive) {
-          count++;
-        }
-      }
-
-      if (j!= life.length-1) { // changed from 2
-        if (life[i][j+1].isAlive) {
-          count++;
-        }
-      }
-
-      if (i!= life.length-1 && j!= life.length-1) {
-        if (life[i+1][j+1].isAlive) {
-          count++;
-        }
-      }
       
-      println(count, i , j);
-
+     int count = livingNeighbours(life, i, j);
+     
       // inside of the for loops.
       // next generation, based on conways game of life.
 
       futureSetup[i][j] = loadCell(life[i][j].toChar(), i, j);
 
-      if (life[i][j].isAlive && count <2) {
+      if (life[i][j].isAlive() && count <2) {
         futureSetup[i][j] = futureSetup[i][j].kill();
       }
-      if (life[i][j].isAlive && count == 2 || count == 3) {
+      if (life[i][j].isAlive() && count == 2 || count == 3) {
         // nothing
       }
-      if (life[i][j].isAlive && count >3) {
+      if (life[i][j].isAlive() && count >3) {
         futureSetup[i][j] = futureSetup[i][j].kill();
       }
-
-      if (life[i][j].isAlive == false && count == 3) {
+      if (life[i][j].isAlive() == false && count == 3) {
         futureSetup[i][j] = futureSetup[i][j].resurrect();
       }
     }
@@ -192,4 +140,57 @@ Cell[][] updateLife(Cell[][] life) {
   // outside of the for loops.
 
   return futureSetup;
+}
+
+int livingNeighbours(Cell[][]life, int i , int j) {
+      int count = 0;
+      if (i!=0 && j!=0) {
+        if (life[i-1][j-1].isAlive()) {
+          count++;
+        }
+      }
+
+      if (j!=0) {
+        if (life[i][j-1].isAlive()) {
+          count++;
+        }
+      }
+
+      if (i!= life.length-1 && j!=0) {
+        if (life[i+1][j-1].isAlive()) {
+          count++;
+        }
+      }
+
+      if (i!=0) {
+        if (life[i-1][j].isAlive()) {
+          count++;
+        }
+      }
+
+      if (i!= life.length-1) {
+        if (life[i+1][j].isAlive()) {
+          count++;
+        }
+      }
+
+      if (i!=0 && j!= life.length-1) {// changed from 2
+        if (life[i-1][j+1].isAlive()) {
+          count++;
+        }
+      }
+
+      if (j!= life.length-1) { // changed from 2
+        if (life[i][j+1].isAlive()) {
+          count++;
+        }
+      }
+
+      if (i!= life.length-1 && j!= life.length-1) {
+        if (life[i+1][j+1].isAlive()) {
+          count++;
+        }
+      }
+      
+      return count;
 }

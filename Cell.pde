@@ -2,8 +2,7 @@ class Cell {
   int xPosition;
   int yPosition;
   static final int SIZE = 40;
-  boolean isAlive;
-  // TODO: remove isAlive, and replace with DeadCell
+  //boolean isAlive;
 
   Cell(int xArray, int yArray) {
     xPosition = xArray * SIZE;
@@ -13,19 +12,19 @@ class Cell {
 
   Cell(int xArray, int yArray, boolean lifeStatus) {
     this(xArray, yArray);
-    isAlive = lifeStatus;
+    //isAlive = lifeStatus;
   }
 
-  //Cell(int xArray, int yArray, char saveData) {
-  //  this(xArray, yArray);  
-  //}
-
   char toChar() {
-    if (isAlive) {
-      return 'T';
-    } else { 
-      return 'F';
-    }
+    return 'C';
+  }
+
+  boolean isAlive() {
+    return this instanceof AliveCell;
+  }
+
+  boolean isDead() {
+    return this instanceof DeadCell;
   }
 
   void render() {
@@ -73,9 +72,8 @@ class Cell {
   DeadCell kill() {
     return new DeadCell(floor(this.xPosition / Cell.SIZE), floor(this.yPosition / Cell.SIZE) );
   }
-  
-  AliveCell resurrect(){
+
+  AliveCell resurrect() {
     return new AliveCell(floor(this.xPosition / Cell.SIZE), floor(this.yPosition / Cell.SIZE));
-  } 
-  
+  }
 }
