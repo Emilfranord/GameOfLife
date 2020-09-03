@@ -14,7 +14,7 @@ class DeadCell extends Cell {
 
   void render() {
     //println("dead render");
-    fill(#000000);
+    fill(#ffffff);
     super.render();
   }
   char toChar() {
